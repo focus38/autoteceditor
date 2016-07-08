@@ -1,0 +1,291 @@
+-- MySQL dump 10.13  Distrib 5.7.9, for osx10.9 (x86_64)
+--
+-- Host: localhost    Database: autotec
+-- ------------------------------------------------------
+-- Server version	5.7.9
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `brand`
+--
+
+DROP TABLE IF EXISTS `brand`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `brand` (
+  `Id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) NOT NULL DEFAULT '',
+  `ServiceDescription` text,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `brand`
+--
+
+LOCK TABLES `brand` WRITE;
+/*!40000 ALTER TABLE `brand` DISABLE KEYS */;
+INSERT INTO `brand` VALUES (1,'Acura',NULL),(2,'Alfa Romeo',NULL),(3,'Audi',NULL),(4,'BMW',NULL),(5,'Skoda',NULL),(6,'Volkswagen',NULL),(7,'Toyota',NULL),(8,'Honda',NULL);
+/*!40000 ALTER TABLE `brand` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `milage`
+--
+
+DROP TABLE IF EXISTS `milage`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `milage` (
+  `Id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
+  `Name` varchar(50) NOT NULL DEFAULT '',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `milage`
+--
+
+LOCK TABLES `milage` WRITE;
+/*!40000 ALTER TABLE `milage` DISABLE KEYS */;
+/*!40000 ALTER TABLE `milage` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `model`
+--
+
+DROP TABLE IF EXISTS `model`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `model` (
+  `Id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) NOT NULL DEFAULT '',
+  `BrandId` bigint(11) unsigned NOT NULL,
+  `ServiceDescription` text,
+  PRIMARY KEY (`Id`),
+  KEY `brandId` (`BrandId`),
+  CONSTRAINT `model_ibfk_1` FOREIGN KEY (`BrandId`) REFERENCES `brand` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `model`
+--
+
+LOCK TABLES `model` WRITE;
+/*!40000 ALTER TABLE `model` DISABLE KEYS */;
+INSERT INTO `model` VALUES (1,'Polo A04',6,NULL),(2,'Polo A05',6,NULL),(3,'Polo седан',6,NULL),(4,'Civic',8,NULL),(7,'CR-V',8,NULL),(8,'Accord',8,NULL),(9,'Jazz',8,NULL),(10,'Pilot',8,NULL),(11,'Legend',8,NULL),(12,'Crosstour',8,NULL);
+/*!40000 ALTER TABLE `model` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `modification`
+--
+
+DROP TABLE IF EXISTS `modification`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `modification` (
+  `Id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) NOT NULL DEFAULT '',
+  `ModelId` bigint(11) unsigned NOT NULL,
+  `StartProdYear` int(11) DEFAULT NULL,
+  `EndProdYear` int(11) DEFAULT NULL,
+  `ServiceDescription` text,
+  PRIMARY KEY (`Id`),
+  KEY `modelId` (`ModelId`),
+  CONSTRAINT `modification_ibfk_1` FOREIGN KEY (`ModelId`) REFERENCES `model` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `modification`
+--
+
+LOCK TABLES `modification` WRITE;
+/*!40000 ALTER TABLE `modification` DISABLE KEYS */;
+INSERT INTO `modification` VALUES (1,'Бензин 1.2 (44 кВт)',1,2008,NULL,NULL),(2,'Бензин (TF2) 2011',12,2011,NULL,NULL);
+/*!40000 ALTER TABLE `modification` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `service`
+--
+
+DROP TABLE IF EXISTS `service`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `service` (
+  `Id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) NOT NULL DEFAULT '',
+  `Description` text,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `service`
+--
+
+LOCK TABLES `service` WRITE;
+/*!40000 ALTER TABLE `service` DISABLE KEYS */;
+INSERT INTO `service` VALUES (1,'Замена масла в ДВС',NULL),(2,'Замена масляного фильтра',NULL),(3,'Салонный фильтр',NULL),(4,'Замена пробки с уплотнительным кольцом масляного поддона',NULL),(5,'Топливного фильтра',NULL),(6,'Воздушного фильтра',NULL),(7,'Свечи зажигания',NULL),(8,'Передние тормозные колодки',NULL),(9,'Задние тормозные колодки',NULL),(10,'Инспекционный сервис',NULL),(11,'Тормозная жидкость',NULL),(12,'Зазоры в клапанах',NULL),(13,'Приводные ремни',NULL),(14,'Ремень привода ГРМ',NULL),(15,'Рабочая жидкость заднего дифференциала',NULL),(16,'Считывание параметров и кодов ошибок',NULL),(17,'Щетки стеклоочистителя',NULL),(18,'Стояночный тормоз',NULL);
+/*!40000 ALTER TABLE `service` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `serviceplan`
+--
+
+DROP TABLE IF EXISTS `serviceplan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `serviceplan` (
+  `Id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
+  `MileageMask` bigint(20) NOT NULL,
+  `MonthIntervalMask` bigint(20) NOT NULL,
+  `MileageMultiplier` decimal(10,2) NOT NULL,
+  `MonthintervalMultiplier` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `serviceplan`
+--
+
+LOCK TABLES `serviceplan` WRITE;
+/*!40000 ALTER TABLE `serviceplan` DISABLE KEYS */;
+INSERT INTO `serviceplan` VALUES (1,510,12,15000.00,1.00);
+/*!40000 ALTER TABLE `serviceplan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `serviceplanevent`
+--
+
+DROP TABLE IF EXISTS `serviceplanevent`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `serviceplanevent` (
+  `Id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
+  `ServiceId` bigint(11) unsigned NOT NULL,
+  `ModificationId` bigint(20) unsigned NOT NULL,
+  `Description` varchar(255) DEFAULT NULL,
+  `WorktypeId` bigint(11) unsigned NOT NULL,
+  `NormH` float DEFAULT NULL,
+  `IsExtra` tinyint(1) NOT NULL DEFAULT '0',
+  `ServicePlanId` bigint(11) unsigned NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `serviceId` (`ServiceId`),
+  KEY `worktypeId` (`WorktypeId`),
+  KEY `modificationId` (`ModificationId`),
+  KEY `serviceplanId` (`ServicePlanId`),
+  CONSTRAINT `serviceplanevent_ibfk_1` FOREIGN KEY (`ServiceId`) REFERENCES `service` (`Id`),
+  CONSTRAINT `serviceplanevent_ibfk_2` FOREIGN KEY (`WorktypeId`) REFERENCES `worktype` (`Id`),
+  CONSTRAINT `serviceplanevent_ibfk_3` FOREIGN KEY (`ModificationId`) REFERENCES `modification` (`Id`),
+  CONSTRAINT `serviceplanevent_ibfk_4` FOREIGN KEY (`ServicePlanId`) REFERENCES `serviceplan` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `serviceplanevent`
+--
+
+LOCK TABLES `serviceplanevent` WRITE;
+/*!40000 ALTER TABLE `serviceplanevent` DISABLE KEYS */;
+INSERT INTO `serviceplanevent` VALUES (2,1,2,'Без снятия защиты ДВС',1,NULL,0,1),(3,2,2,'Без снятия защитй ДВС',1,NULL,0,1),(5,6,2,NULL,2,NULL,0,1),(6,3,2,NULL,2,NULL,0,1),(7,7,2,'Иридиевые',2,NULL,0,1),(8,13,2,'Бензиновый двигатель',2,NULL,0,1),(9,15,2,'DPS-F',1,NULL,0,1),(10,16,2,'HDS/MVCI',2,NULL,0,1),(11,17,2,NULL,2,NULL,0,1),(12,8,2,NULL,2,NULL,0,1),(14,9,2,NULL,2,NULL,0,1);
+/*!40000 ALTER TABLE `serviceplanevent` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `serviceplanview`
+--
+
+DROP TABLE IF EXISTS `serviceplanview`;
+/*!50001 DROP VIEW IF EXISTS `serviceplanview`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `serviceplanview` AS SELECT 
+ 1 AS `BrandName`,
+ 1 AS `ModelName`,
+ 1 AS `ModifName`,
+ 1 AS `ModifStart`,
+ 1 AS `ModifEnd`,
+ 1 AS `ServiceName`,
+ 1 AS `ServiceDEsc`,
+ 1 AS `ServiceMileageMask`,
+ 1 AS `monthIntervalmask`,
+ 1 AS `mileagemultiplier`,
+ 1 AS `monthintervalmultiplier`,
+ 1 AS `ServiceEventDesc`,
+ 1 AS `abb`,
+ 1 AS `normh`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `worktype`
+--
+
+DROP TABLE IF EXISTS `worktype`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `worktype` (
+  `Id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
+  `Name` varchar(70) NOT NULL DEFAULT '',
+  `Abb` varchar(5) DEFAULT '',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `worktype`
+--
+
+LOCK TABLES `worktype` WRITE;
+/*!40000 ALTER TABLE `worktype` DISABLE KEYS */;
+INSERT INTO `worktype` VALUES (1,'Замена','З'),(2,'Проверка, при необходимости замена, смазка, регулирока','П'),(3,'Смазка','С'),(4,'Регулировка','Р');
+/*!40000 ALTER TABLE `worktype` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Final view structure for view `serviceplanview`
+--
+
+/*!50001 DROP VIEW IF EXISTS `serviceplanview`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`%` SQL SECURITY DEFINER */
+/*!50001 VIEW `serviceplanview` AS select `b`.`Name` AS `BrandName`,`md`.`Name` AS `ModelName`,`mf`.`Name` AS `ModifName`,`mf`.`StartProdYear` AS `ModifStart`,`mf`.`EndProdYear` AS `ModifEnd`,`s`.`Name` AS `ServiceName`,`s`.`Description` AS `ServiceDEsc`,`sp`.`MileageMask` AS `ServiceMileageMask`,`sp`.`MonthIntervalMask` AS `monthIntervalmask`,`sp`.`MileageMultiplier` AS `mileagemultiplier`,`sp`.`MonthintervalMultiplier` AS `monthintervalmultiplier`,`e`.`Description` AS `ServiceEventDesc`,`wt`.`Abb` AS `abb`,`e`.`NormH` AS `normh` from ((((((`serviceplanevent` `e` join `service` `s` on((`e`.`ServiceId` = `s`.`Id`))) join `serviceplan` `sp` on((`sp`.`Id` = `e`.`ServicePlanId`))) join `worktype` `wt` on((`wt`.`Id` = `e`.`WorktypeId`))) join `modification` `mf` on((`mf`.`Id` = `e`.`ModificationId`))) join `model` `md` on((`md`.`Id` = `mf`.`ModelId`))) join `brand` `b` on((`b`.`Id` = `md`.`BrandId`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-07-08 13:14:24
