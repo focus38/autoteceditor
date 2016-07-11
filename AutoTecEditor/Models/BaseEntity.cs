@@ -1,10 +1,11 @@
-﻿using System.Data.Linq.Mapping;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AutoTecEditor.Models
 {
-    public class BaseEntity
+    public abstract class BaseEntity
     {
-        [Column(IsPrimaryKey = true, CanBeNull = false)]
+        [System.Data.Linq.Mapping.Column(IsPrimaryKey = true, CanBeNull = false)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public string Name { get; set; }

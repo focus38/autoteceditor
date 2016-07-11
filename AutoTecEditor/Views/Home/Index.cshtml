@@ -1,16 +1,7 @@
-﻿@model AutoTecEditor.Models.IndexViewModel
-
-@{
+﻿@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="row">
-    <div class="col-md-4">
-        @(
-        Html.EJ().DropDownList("ddlBrands")
-        .Datasource(Model.Brands)
-        .DropDownListFields(f => f.Text("Name").Value("Id").ID("Id"))
-        .Width("240px")
-    )
-    </div>
+
 </div>

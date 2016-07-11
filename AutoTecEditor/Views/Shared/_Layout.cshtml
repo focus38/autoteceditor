@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - AutoTecEitor</title>
+    <title>@ViewBag.Title - AutoTecEditor</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/ej/web/Default-theme/ej.widgets.all.min.css")
     @Scripts.Render("~/Scripts/jquery-2.1.4.min.js")
@@ -26,16 +26,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Справочники", "Index", "Dictionary")</li>
+                    <li>@Html.ActionLink("Сервис план", "Index", "ServicePlan")</li>
                 </ul>
             </div>
         </div>
     </div>
-   <div class="container body-content">
-         @RenderBody()   	     
-   </div>
+<div class="container body-content">
+    <div style="margin: 10px">
+        @RenderBody()
+    </div>
+</div>
 
    @Html.EJ().ScriptManager()
    @Scripts.Render("~/bundles/bootstrap")

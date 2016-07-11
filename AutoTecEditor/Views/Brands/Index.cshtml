@@ -1,0 +1,32 @@
+﻿@using AutoTecEditor.Models
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@(Html.EJ().Grid<Brand>("brandGrid")
+      .Datasource(ds => ds.Json((IEnumerable<Brand>)ViewBag.brandDataSource)
+        .UpdateURL("/Brands/Update")
+        .InsertURL("/Brands/Insert")
+        .RemoveURL("/Brands/Remove")
+        .Adaptor(AdaptorType.WebApiAdaptor)
+        )
+        .EditSettings(edit => { edit.AllowAdding().AllowEditing().AllowDeleting().EditMode(EditMode.InlineForm); })
+        .ToolbarSettings(toolbar =>
+        {
+            toolbar.ShowToolbar().ToolbarItems(items =>
+            {
+                items.AddTool(ToolBarItems.Add);
+                items.AddTool(ToolBarItems.Edit);
+                items.AddTool(ToolBarItems.Delete);
+            });
+        })
+          .Columns(c =>
+          {
+              c.Field("Id").HeaderText("Id").TextAlign(TextAlign.Left).AllowEditing(false).Width(40).Add();
+              c.Field("Name").HeaderText("Название").TextAlign(TextAlign.Left).Width(200).Add();
+              c.Field("ServiceDescription").HeaderText("Общий сервис комментарий").TextAlign(TextAlign.Left).Width(400).Add();
+          })
+      )

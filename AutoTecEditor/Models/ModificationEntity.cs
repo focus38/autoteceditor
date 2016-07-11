@@ -3,7 +3,7 @@
 namespace AutoTecEditor.Models
 {
     [Table(Name = "modification")]
-    public class ModificationEntity : BaseEntity
+    public class Modification : BaseEntity
     {
         public int ModelId { get; set; }
 

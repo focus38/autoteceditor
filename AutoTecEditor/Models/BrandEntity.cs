@@ -3,7 +3,7 @@
 namespace AutoTecEditor.Models
 {
     [Table(Name = "brand")]
-    public class BrandEntity: BaseEntity
+    public class Brand: BaseEntity
     {
         public string ServiceDescription { get; set; }
     }

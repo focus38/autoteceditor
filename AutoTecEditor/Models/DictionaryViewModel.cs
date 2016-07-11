@@ -4,10 +4,10 @@ namespace AutoTecEditor.Models
 {
     public class DictionaryViewModel
     {
-        public List<BrandEntity> Brands { get; set; }
+        public List<Brand> Brands { get; set; }
 
-        public List<ModificationEntity> Modifications { get; set; }
+        public List<Modification> Modifications { get; set; }
 
-        public List<ModelEntity> Models { get; set; }
+        public List<Model> Models { get; set; }
     }
 }

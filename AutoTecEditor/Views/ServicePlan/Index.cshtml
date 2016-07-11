@@ -1,0 +1,55 @@
+﻿@using AutoTecEditor.Models
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @(Html.EJ()
+          .Grid<ServicePlanEvent>("servicePlanGrid")
+          .Datasource(ds => ds.URL("/ServicePlan/List")
+              .UpdateURL("/ServicePlan/Update")
+              .InsertURL("/ServicePlan/Insert")
+              .RemoveURL("/ServicePlan/Remove")
+              .Adaptor(AdaptorType.RemoteSaveAdaptor)
+              )
+          .AllowPaging()
+          .EditSettings(edit => { edit.AllowAdding();
+                                    edit.AllowEditing();
+                                    edit.AllowDeleting();
+                                    edit.ShowDeleteConfirmDialog();
+                                    edit.EditMode(EditMode.InlineForm);
+          })
+          .ToolbarSettings(tlb =>
+          {
+              tlb.ShowToolbar(true).ToolbarItems(itm =>
+              {
+                  itm.AddTool(ToolBarItems.Add);
+                  itm.AddTool(ToolBarItems.Edit);
+                  itm.AddTool(ToolBarItems.Delete);
+              });
+          })
+          .Columns(c =>
+          {
+              c.Field(p => p.Id).IsPrimaryKey(true).HeaderText("Id").TextAlign(TextAlign.Left).Width(40).Add();
+              c.Field("ModificationId").HeaderText("Техника")
+                  .ForeignKeyField("ModificationId").ForeignKeyValue("ModificationName").DataSource(df => df.URL("/Dictionary/ModificationsView"))
+                  .TextAlign(TextAlign.Left).Width(250).Add();
+
+              c.Field(p => p.ServiceId).HeaderText("Вид работы")
+                  .ForeignKeyField("ServiceId").ForeignKeyValue("ServiceName").DataSource(df => df.URL("/Dictionary/Services"))
+                  .TextAlign(TextAlign.Left).Width(250).Add();
+
+              c.Field(p => p.WorkTypeId).HeaderText("Тип")
+                  .ForeignKeyField("WorkTypeId").ForeignKeyValue("WorkTypeName").DataSource(df => df.URL("/Dictionary/WorkTypes"))
+                  .TextAlign(TextAlign.Left).Width(100).Add();
+
+              c.Field(p => p.MilageInterval).HeaderText("Пробег").TextAlign(TextAlign.Left).Width(70).Add();
+              c.Field(p => p.MonthInterval).HeaderText("Период (мес.)").TextAlign(TextAlign.Left).Width(70).Add();
+              c.Field(p => p.NormH).HeaderText("Нормочас").TextAlign(TextAlign.Center).Width(70).Add();
+              c.Field(p => p.Description).HeaderText("Описание").TextAlign(TextAlign.Left).Width(250).Add();
+          }
+          ))
+</div>
+

@@ -1,0 +1,39 @@
+﻿@model AutoTecEditor.Models.IndexViewModel
+
+@{
+    ViewBag.Title = "Справочники";
+}
+
+<div class="row">
+    <label for="ddlBrands" class="col-md-2">Производители</label>
+    <div class="col-md-4">
+        @(
+    Html.EJ().DropDownList("ddlBrands")
+        .Datasource(Model.Brands)
+        .DropDownListFields(f => f.Text("Name").Value("Id").ID("Id"))
+        .Width("240px")
+        .ClientSideEvents(e => e.Change("onBrandChange"))
+              )
+    </div>
+</div>
+
+<div class="row">
+    
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+        
+        function onBrandChange(args) {
+
+            $.getJSON(
+                "/Dictionary/Modifications?brandId="+args.model.value,
+                function (data) {
+
+            });
+        }
+
+    </script>
+
+}
